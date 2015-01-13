@@ -1,2 +1,2 @@
 # OOP-Javascript
-Frontend and CMS exam
+OOP Javascript exercise
