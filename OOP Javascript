@@ -1,0 +1,71 @@
+<html>
+<head>
+	<meta charset="UTF8">
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript">
+	function Account(accountType, owner, balance) {
+	transaction = [];
+    this.accountType = accountType;
+    this.owner = owner;
+    this.balance = balance;
+    this.transaction = transaction;
+    this.withdraw = function(amount) {
+    	this.transaction.push('<span class="red">-' + amount + '</span>');
+    	this.balance = this.balance-amount;
+    };
+    this.deposit = function(amount) {
+    	this.transaction.push('<span class="green">' + amount + '</span>');
+    	this.balance = this.balance+parseInt(amount);
+    };
+    this.getBalance = function() {
+    	if(this.balance >= 0) {
+	    	$('.balance').html('<span class="green">' + this.balance + '</span>');
+	    } else if(this.balance <= 0) {
+	    	$('.balance').html('<span class="red">' + this.balance + '</span>');
+	    }
+    };
+    this.getTransactions = function() {
+    	$('.transactions').html(this.transaction.join("<br>"));
+
+    };
+} 
+
+var hansJ = new Account("lÃ¸nkonto", "Hans Jensen", 0);
+
+function changeBalance() {
+	var value = $('#moneyvalue').val();
+	var selected = $('.bankoptions').val();
+	if(selected == 'Withdraw') {
+		hansJ.withdraw(value);
+	} else if(selected == 'Deposit') {
+		hansJ.deposit(value);
+	}
+	hansJ.getBalance();
+	hansJ.getTransactions();
+}
+</script>
+</head>
+<body>
+
+<div id="container">
+	<div class="col">
+		<select class='bankoptions'>
+			<option>Withdraw</option>
+			<option>Deposit</option>
+		</select>
+		<input type="number" id="moneyvalue"></input> 
+		<input type="submit" id="submit" value="submit" onclick='changeBalance()'></input> 
+
+		<br><br>
+
+		Balance: <span class="balance">0</span>
+	</div>
+	<div class="col">
+		Transactions: <br>
+		<div class="transactions"></div>
+	</div>
+</div>
+
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
+</body>
+</html>
